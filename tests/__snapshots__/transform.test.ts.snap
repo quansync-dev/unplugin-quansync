@@ -1,0 +1,108 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`transform > ./fixtures/alias.js 1`] = `
+"import { toGenerator as _QUANSYNC_TO_GEN } from 'quansync'
+// @ts-check
+import { quansync, quansyncMacro as x } from 'quansync'
+import { expect } from 'vitest'
+
+export const echo = quansync({
+  sync: /** @param {string} v */ (v) => v,
+  async: (v) => Promise.resolve(v),
+})
+
+const echoNewLine = x(
+  /** @param {string|Promise<string>} v */ function* (v) {
+    const contents = yield * _QUANSYNC_TO_GEN(echo(yield * _QUANSYNC_TO_GEN(v)))
+    return contents + '\\n'
+  },
+)
+
+export default async () => {
+  const iter = echoNewLine('hello')
+  expect(iter).a('Generator')
+  await expect(iter).resolves.toBe('hello\\n')
+  expect(echoNewLine.sync('world')).toBe('world\\n')
+
+  await expect(echoNewLine(Promise.resolve('hello'))).resolves.toBe('hello\\n')
+  expect(() => echoNewLine.sync(Promise.resolve('world'))).throw()
+}
+"
+`;
+
+exports[`transform > ./fixtures/basic.js 1`] = `
+"import { toGenerator as _QUANSYNC_TO_GEN } from 'quansync'
+// @ts-check
+import { quansyncMacro } from 'quansync'
+import { expect } from 'vitest'
+
+export const getNumber = quansyncMacro({
+  sync: /** @param {number} id */ (id) => id,
+  async: (id) => Promise.resolve(id),
+})
+
+const inc1 = quansyncMacro(function* (){
+  const value = yield * _QUANSYNC_TO_GEN(getNumber(1))
+  return value + 1
+})
+
+const inc2 = quansyncMacro(function* (id) {
+  const value = yield * _QUANSYNC_TO_GEN(getNumber(1))
+  return value + 1
+})
+
+const inc3 = quansyncMacro(function* named(){
+  const value = yield * _QUANSYNC_TO_GEN(getNumber(1))
+  return value + 1
+})
+
+const inc4 = quansyncMacro(function* named(id) {
+  const value = yield * _QUANSYNC_TO_GEN(getNumber(1))
+  return value + 1
+})
+
+const inc5 = quansyncMacro(() => {
+return function* () {
+  const value = yield * _QUANSYNC_TO_GEN(getNumber(1))
+  return value + 1
+}.call(this)
+})
+
+const inc6 = quansyncMacro((id) => {
+return function* () {
+  const value = yield * _QUANSYNC_TO_GEN(getNumber(1))
+  return value + 1
+}.call(this)
+})
+
+export const fn7 = quansyncMacro(() => {
+return function* () {
+  yield * _QUANSYNC_TO_GEN(1)
+  yield * _QUANSYNC_TO_GEN(2)
+  const fn = async () => {
+    await 3
+  }
+  async function x() {
+    await 4
+  }
+  class Foo {
+    async x() {
+      await 10
+    }
+    async #x() {
+      await 10
+    }
+  }
+}.call(this)
+})
+
+export default async () => {
+  await expect(getNumber(1)).resolves.toBe(1)
+  expect(getNumber.sync(1)).toBe(1)
+  for (const fn of [inc1, inc2, inc3, inc4, inc5, inc6]) {
+    await expect(fn()).resolves.toBe(2)
+    expect(fn.sync(1)).toBe(2)
+  }
+}
+"
+`;
