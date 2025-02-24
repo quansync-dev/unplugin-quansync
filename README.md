@@ -124,6 +124,9 @@ const result = myFunction.sync('./some-file.js')
 const asyncResult = await myFunction.async('./some-file.js')
 ```
 
+For more details, please refer to the
+[quansync documentation](https://github.com/antfu/quansync#usage).
+
 ## Sponsors
 
 <p align="center">
