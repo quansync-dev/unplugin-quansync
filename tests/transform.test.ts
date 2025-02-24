@@ -1,5 +1,5 @@
 /// <reference types="vite/client" />
-import { unlink, writeFile } from 'node:fs/promises'
+import { writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { testFixtures } from '@sxzz/test-utils'
