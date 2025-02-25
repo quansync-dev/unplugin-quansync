@@ -103,13 +103,13 @@ export default {
 import fs from 'node:fs'
 import { quansyncMacro } from 'quansync'
 
-// Create an quansync function by providing `sync` and `async` implementations
+// Create a quansync function by providing `sync` and `async` implementations
 const readFile = quansyncMacro({
   sync: (path: string) => fs.readFileSync(path),
   async: (path: string) => fs.promises.readFile(path),
 })
 
-// Create an quansync function by providing a **async** function
+// Create a quansync function by providing an **async** function
 const myFunction = quansyncMacro(async function (filename) {
   // Use `await` to call another quansync function
   const code = await readFile(filename, 'utf8')
