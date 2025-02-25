@@ -135,6 +135,56 @@ const asyncResult = await myFunction.async('./some-file.js')
 
 For more details on usage, refer to [quansync's docs](https://github.com/antfu-collective/quansync#usage).
 
+## How it works
+
+`unplugin-quansync` transforms your async functions into generator functions with `quansyncMacro`,
+and transforms `await` into `yield * toGenerator(...)`.
+
+The example above is transformed into:
+
+```ts
+import fs from 'node:fs'
+import { quansyncMacro, toGenerator } from 'quansync'
+
+// No transformations needed for objects
+const readFile = quansyncMacro({
+  sync: (path: string) => fs.readFileSync(path),
+  async: (path: string) => fs.promises.readFile(path),
+})
+
+// `async function` is transformed into a generator function
+const myFunction = quansyncMacro(function* (filename) {
+  // `await` is transformed into `yield * toGenerator(...)`
+  const code = yield* toGenerator(readFile(filename, 'utf8'))
+
+  return `// some custom prefix\n${code}`
+})
+```
+
+## Caveats
+
+Both arrow functions and generators have been available since ES2015,
+but a "generator arrow function" syntax does not exist
+[yet](https://github.com/tc39/proposal-generator-arrow-functions).
+
+You can still use arrow functions with `quansyncMacro`,
+but they will be transformed into generator functions,
+retaining `this` binding and omitting the `arguments` object.
+
+```ts
+const echoNewLine = quansyncMacro(() => 42)
+
+// Transforms to:
+
+const echoNewLine = quansyncMacro((v) => {
+  return function* () {
+    return 42
+  }.call(this)
+})
+```
+
+To minimize runtime overhead, prioritize using regular functions.
+
 ## Sponsors
 
 <p align="center">
