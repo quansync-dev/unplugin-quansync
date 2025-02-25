@@ -14,9 +14,6 @@ importers:
       magic-string-ast:
         specifier: ^0.7.0
         version: 0.7.0
-      quansync:
-        specifier: ^0.0.5
-        version: 0.0.5
       unplugin:
         specifier: ^2.2.0
         version: 2.2.0
@@ -51,6 +48,9 @@ importers:
       prettier:
         specifier: ^3.5.2
         version: 3.5.2
+      quansync:
+        specifier: ^0.0.5
+        version: 0.0.5
       tsdown:
         specifier: ^0.6.0
         version: 0.6.0(oxc-transform@0.52.0)(publint@0.3.4)(typescript@5.7.3)(unplugin-unused@0.4.1)
