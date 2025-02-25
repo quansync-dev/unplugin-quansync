@@ -3,7 +3,14 @@
 [![Unit Test](https://github.com/unplugin/unplugin-quansync/actions/workflows/unit-test.yml/badge.svg)](https://github.com/unplugin/unplugin-quansync/actions/workflows/unit-test.yml)
 
 Write async functions, get both async and sync functions with
-[quansync](https://github.com/antfu/quansync) and compiler magics.
+[quansync](https://github.com/antfu/quansync) and compile-time magics 🪄.
+
+## Features
+
+- 🪄 **Compile-time magic**: Write async functions, get both async and sync functions.
+- 🦾 **Type-safe**: Fully typed with TypeScript.
+- 🌱 **Lightweight**: No runtime dependencies.
+- 🚀 **Zero-config**: Works out of the box with Vite, Rollup, Webpack, esbuild, and more.
 
 ## Installation
 
@@ -99,6 +106,8 @@ export default {
 
 ## Usage
 
+Here is an example:
+
 ```ts
 import fs from 'node:fs'
 import { quansyncMacro } from 'quansync'
@@ -124,8 +133,7 @@ const result = myFunction.sync('./some-file.js')
 const asyncResult = await myFunction.async('./some-file.js')
 ```
 
-For more details, please refer to the
-[quansync documentation](https://github.com/antfu/quansync#usage).
+For more details on usage, refer to [quansync's docs](https://github.com/antfu-collective/quansync#usage).
 
 ## Sponsors
 
