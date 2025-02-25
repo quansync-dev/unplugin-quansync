@@ -106,3 +106,35 @@ export default async () => {
 }
 "
 `;
+
+exports[`transform > ./fixtures/inlined-arrow.js 1`] = `
+"import { toGenerator as _QUANSYNC_TO_GEN } from 'quansync'
+// @ts-check
+import { quansyncMacro } from 'quansync'
+import { expect } from 'vitest'
+
+export const echo = quansyncMacro({
+  sync: /** @param {string} v */ (v) => v,
+  async: (v) => Promise.resolve(v),
+})
+
+const echoNewLine = quansyncMacro(
+  /** @param {string|Promise<string>} v */ (v) =>
+    {
+return function* () {
+return (yield * _QUANSYNC_TO_GEN(echo(yield * _QUANSYNC_TO_GEN(v)))) + '\\n'
+}.call(this)
+},
+)
+
+export default async () => {
+  const iter = echoNewLine('hello')
+  expect(iter).a('Generator')
+  await expect(iter).resolves.toBe('hello\\n')
+  expect(echoNewLine.sync('world')).toBe('world\\n')
+
+  await expect(echoNewLine(Promise.resolve('hello'))).resolves.toBe('hello\\n')
+  expect(() => echoNewLine.sync(Promise.resolve('world'))).throw()
+}
+"
+`;

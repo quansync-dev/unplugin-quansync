@@ -14,6 +14,9 @@ import {
 } from 'magic-string-ast'
 import type * as t from '@babel/types'
 
+const ARROW_FN_START = `\nreturn function* () {`
+const ARROW_FN_END = `}.call(this)\n`
+
 export function transformQuansync(
   code: string,
   id: string,
@@ -75,10 +78,11 @@ export function transformQuansync(
         }
 
         if (node.body.type === 'BlockStatement') {
-          s.appendLeft(node.body.start! + 1, `\nreturn function* () {`)
-          s.appendLeft(node.body.end! - 1, `}.call(this)\n`)
+          s.appendLeft(node.body.start! + 1, ARROW_FN_START)
+          s.appendLeft(node.body.end! - 1, ARROW_FN_END)
         } else {
-          throw new SyntaxError('Inlined arrow function is not supported')
+          s.appendLeft(node.body.start!, `{${ARROW_FN_START}\nreturn `)
+          s.appendLeft(node.body.end!, `\n${ARROW_FN_END}}`)
         }
       } else if (firstParam) {
         s.overwrite(node.start!, firstParam.start!, `function* ${name}(`)
