@@ -96,11 +96,8 @@ return function* () {
 
 quansync(() => {
 return function* () {
-  // prettier-ignore
   ;!(yield 1)
-  // prettier-ignore
   ;'' + (yield 1)
-  // prettier-ignore
   ;false && (yield 1)
   fn7()
   ;(yield 1) < (yield 10)

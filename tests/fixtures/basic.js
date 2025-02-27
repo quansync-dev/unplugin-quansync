@@ -57,11 +57,8 @@ export const fn7 = quansync(async () => {
 })
 
 quansync(async () => {
-  // prettier-ignore
   !await 1
-  // prettier-ignore
   '' + await 1
-  // prettier-ignore
   false && await 1
   fn7()
   await 1 < await 10
