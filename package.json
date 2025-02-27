@@ -1,6 +1,6 @@
 {
   "name": "unplugin-quansync",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "packageManager": "pnpm@10.5.0",
   "description": "Write async functions, get both async and sync functions",
   "type": "module",
