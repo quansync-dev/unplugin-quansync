@@ -3,6 +3,7 @@ import {
   getLang,
   isCallOf,
   isFunctionType,
+  isTypeOf,
   walkAST,
   walkImportDeclaration,
   type ImportBinding,
@@ -38,11 +39,46 @@ export function transformQuansync(
 
   const s = new MagicString(code)
   const functionScopes: boolean[] = []
+  const nodeStack: t.Node[] = []
+
+  function findUpExpressionStatement(): t.ExpressionStatement | undefined {
+    for (let i = nodeStack.length - 1; i >= 0; i--) {
+      const node = nodeStack[i]
+      if (isFunctionType(node)) return
+      if (node.type === 'ExpressionStatement') {
+        return node
+      }
+    }
+  }
+
+  function prependSemi(stmt: t.Statement & { semi?: boolean }) {
+    if (stmt.semi) return
+    s.prependLeft(stmt.start!, `;`)
+    stmt.semi = true
+  }
 
   walkAST<t.Node>(program, {
     enter(node, parent) {
+      nodeStack.push(node)
       if (node.type === 'AwaitExpression' && functionScopes.at(-1)) {
-        s.overwrite(node.start!, node.argument.start!, 'yield ')
+        const needParen = isTypeOf(parent, [
+          'UnaryExpression',
+          'BinaryExpression',
+          'LogicalExpression',
+          'TSAsExpression',
+          'TSSatisfiesExpression',
+        ])
+        s.overwrite(
+          node.start!,
+          node.argument.start!,
+          `${needParen ? '(' : ''}yield `,
+        )
+        if (needParen) {
+          s.appendLeft(node.end!, ')')
+
+          const stmt = findUpExpressionStatement()
+          if (stmt) prependSemi(stmt)
+        }
         return
       }
 
@@ -78,6 +114,7 @@ export function transformQuansync(
       }
     },
     leave(node) {
+      nodeStack.pop()
       if (isFunctionType(node)) {
         functionScopes.pop()
       }
