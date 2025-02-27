@@ -39,23 +39,10 @@ export function transformQuansync(
   const s = new MagicString(code)
   const functionScopes: boolean[] = []
 
-  let inject = false
-  function injectHelper() {
-    if (inject) return
-    inject = true
-    s.prepend(`import { toGenerator as _QUANSYNC_TO_GEN } from 'quansync'\n`)
-  }
-
   walkAST<t.Node>(program, {
     enter(node, parent) {
       if (node.type === 'AwaitExpression' && functionScopes.at(-1)) {
-        injectHelper()
-        s.overwrite(
-          node.start!,
-          node.argument.start!,
-          'yield * _QUANSYNC_TO_GEN(',
-        )
-        s.appendLeft(node.end!, ')')
+        s.overwrite(node.start!, node.argument.start!, 'yield ')
         return
       }
 

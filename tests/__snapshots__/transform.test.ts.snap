@@ -1,8 +1,7 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`transform > ./fixtures/alias.js 1`] = `
-"import { toGenerator as _QUANSYNC_TO_GEN } from 'quansync'
-// @ts-check
+"// @ts-check
 import { quansync, quansyncMacro as x } from 'quansync'
 import { expect } from 'vitest'
 
@@ -13,7 +12,7 @@ export const echo = quansync({
 
 const echoNewLine = x(
   /** @param {string|Promise<string>} v */ function* (v) {
-    const contents = yield * _QUANSYNC_TO_GEN(echo(yield * _QUANSYNC_TO_GEN(v)))
+    const contents = yield echo(yield v)
     return contents + '\\n'
   },
 )
@@ -31,8 +30,7 @@ export default async () => {
 `;
 
 exports[`transform > ./fixtures/basic.js 1`] = `
-"import { toGenerator as _QUANSYNC_TO_GEN } from 'quansync'
-// @ts-check
+"// @ts-check
 import { quansyncMacro } from 'quansync'
 import { expect } from 'vitest'
 
@@ -42,43 +40,43 @@ export const getNumber = quansyncMacro({
 })
 
 const inc1 = quansyncMacro(function* (){
-  const value = yield * _QUANSYNC_TO_GEN(getNumber(1))
+  const value = yield getNumber(1)
   return value + 1
 })
 
 const inc2 = quansyncMacro(function* (id) {
-  const value = yield * _QUANSYNC_TO_GEN(getNumber(1))
+  const value = yield getNumber(1)
   return value + 1
 })
 
 const inc3 = quansyncMacro(function* named(){
-  const value = yield * _QUANSYNC_TO_GEN(getNumber(1))
+  const value = yield getNumber(1)
   return value + 1
 })
 
 const inc4 = quansyncMacro(function* named(id) {
-  const value = yield * _QUANSYNC_TO_GEN(getNumber(1))
+  const value = yield getNumber(1)
   return value + 1
 })
 
 const inc5 = quansyncMacro(() => {
 return function* () {
-  const value = yield * _QUANSYNC_TO_GEN(getNumber(1))
+  const value = yield getNumber(1)
   return value + 1
 }.call(this)
 })
 
 const inc6 = quansyncMacro((id) => {
 return function* () {
-  const value = yield * _QUANSYNC_TO_GEN(getNumber(1))
+  const value = yield getNumber(1)
   return value + 1
 }.call(this)
 })
 
 export const fn7 = quansyncMacro(() => {
 return function* () {
-  yield * _QUANSYNC_TO_GEN(1)
-  yield * _QUANSYNC_TO_GEN(2)
+  yield 1
+  yield 2
   const fn = async () => {
     await 3
   }
@@ -108,8 +106,7 @@ export default async () => {
 `;
 
 exports[`transform > ./fixtures/inlined-arrow.js 1`] = `
-"import { toGenerator as _QUANSYNC_TO_GEN } from 'quansync'
-// @ts-check
+"// @ts-check
 import { quansyncMacro } from 'quansync'
 import { expect } from 'vitest'
 
@@ -122,7 +119,7 @@ const echoNewLine = quansyncMacro(
   /** @param {string|Promise<string>} v */ (v) =>
     {
 return function* () {
-return (yield * _QUANSYNC_TO_GEN(echo(yield * _QUANSYNC_TO_GEN(v)))) + '\\n'
+return (yield echo(yield v)) + '\\n'
 }.call(this)
 },
 )

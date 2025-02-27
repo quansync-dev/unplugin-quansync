@@ -138,13 +138,13 @@ For more details on usage, refer to [quansync's docs](https://github.com/antfu-c
 ## How it works
 
 `unplugin-quansync` transforms your async functions into generator functions with `quansyncMacro`,
-and transforms `await` into `yield * toGenerator(...)`.
+and transforms `await` into `yield`.
 
 The example above is transformed into:
 
 ```ts
 import fs from 'node:fs'
-import { quansyncMacro, toGenerator } from 'quansync'
+import { quansyncMacro } from 'quansync'
 
 // No transformations needed for objects
 const readFile = quansyncMacro({
@@ -154,14 +154,16 @@ const readFile = quansyncMacro({
 
 // `async function` is transformed into a generator function
 const myFunction = quansyncMacro(function* (filename) {
-  // `await` is transformed into `yield * toGenerator(...)`
-  const code = yield* toGenerator(readFile(filename, 'utf8'))
+  // `await` is transformed into `yield ...`
+  const code = yield readFile(filename, 'utf8')
 
   return `// some custom prefix\n${code}`
 })
 ```
 
 ## Caveats
+
+### Arrow functions
 
 Both arrow functions and generators have been available since ES2015,
 but a "generator arrow function" syntax does not exist
