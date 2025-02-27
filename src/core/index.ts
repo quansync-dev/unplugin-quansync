@@ -15,6 +15,7 @@ import {
 } from 'magic-string-ast'
 import type * as t from '@babel/types'
 
+const THIS_REGEX = /\bthis\b/
 const ARROW_FN_START = `\nreturn function* () {`
 const ARROW_FN_END = `}.call(this)\n`
 
@@ -90,27 +91,17 @@ export function transformQuansync(
       if (!inMacroFunction || !node.async) return
 
       const name = 'id' in node && node.id ? node.id.name : ''
-      const firstParam = node.params[0]
       const isArrowFunction = node.type === 'ArrowFunctionExpression'
 
-      if (isArrowFunction) {
-        if (firstParam) {
-          s.overwrite(node.start!, firstParam.start!, `(`)
-        } else {
-          s.overwrite(node.start!, node.body.start!, `() => `)
-        }
+      const body = s.slice(node.body.start!, node.body.end!)
+      const hasParentThis = isArrowFunction && THIS_REGEX.test(body)
 
-        if (node.body.type === 'BlockStatement') {
-          s.appendLeft(node.body.start! + 1, ARROW_FN_START)
-          s.appendLeft(node.body.end! - 1, ARROW_FN_END)
-        } else {
-          s.appendLeft(node.body.start!, `{${ARROW_FN_START}\nreturn `)
-          s.appendLeft(node.body.end!, `\n${ARROW_FN_END}}`)
-        }
-      } else if (firstParam) {
-        s.overwrite(node.start!, firstParam.start!, `function* ${name}(`)
+      if (hasParentThis) {
+        rewriteFunctionSignature(node, '(', ') => ')
+        rewriteFunctionBody(node, ARROW_FN_START, ARROW_FN_END)
       } else {
-        s.overwrite(node.start!, node.body.start!, `function* ${name}()`)
+        rewriteFunctionSignature(node, `function* ${name}(`, ') ')
+        rewriteFunctionBody(node)
       }
     },
     leave(node) {
@@ -122,4 +113,30 @@ export function transformQuansync(
   })
 
   return generateTransform(s, id)
+
+  function rewriteFunctionSignature(
+    node: t.Function,
+    start: string,
+    end: string,
+  ) {
+    const firstParam = node.params[0]
+    if (firstParam) {
+      s.overwrite(node.start!, firstParam.start!, start)
+      s.overwrite(node.params.at(-1)!.end!, node.body.start!, end)
+    } else {
+      s.overwrite(node.start!, node.body.start!, start + end)
+    }
+  }
+
+  function rewriteFunctionBody(node: t.Function, prefix = '', suffix = '') {
+    if (node.body.type === 'BlockStatement') {
+      s.appendLeft(node.body.start! + 1, prefix)
+      s.appendLeft(node.body.end! - 1, suffix)
+    } else {
+      // prepend `{[prefix]return ` in body
+      s.appendLeft(node.body.start!, `{\n${prefix}return `)
+      // append `[suffix]}` in
+      s.appendLeft(node.body.end!, `${suffix}\n}`)
+    }
+  }
 }

@@ -70,7 +70,7 @@
     "prepublishOnly": "pnpm run build"
   },
   "peerDependencies": {
-    "quansync": ">=0.2.0"
+    "quansync": ">=0.2.2"
   },
   "dependencies": {
     "ast-kit": "^1.4.0",
@@ -88,7 +88,7 @@
     "eslint": "^9.21.0",
     "oxc-transform": "^0.52.0",
     "prettier": "^3.5.2",
-    "quansync": "^0.2.0",
+    "quansync": "^0.2.2",
     "tsdown": "^0.6.0",
     "tsx": "^4.19.3",
     "typescript": "^5.7.3",

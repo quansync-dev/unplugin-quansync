@@ -110,16 +110,16 @@ Here is an example:
 
 ```ts
 import fs from 'node:fs'
-import { quansyncMacro } from 'quansync'
+import { quansync } from 'quansync/macro'
 
 // Create a quansync function by providing `sync` and `async` implementations
-const readFile = quansyncMacro({
+const readFile = quansync({
   sync: (path: string) => fs.readFileSync(path),
   async: (path: string) => fs.promises.readFile(path),
 })
 
 // Create a quansync function by providing an **async** function
-const myFunction = quansyncMacro(async function (filename) {
+const myFunction = quansync(async (filename) => {
   // Use `await` to call another quansync function
   const code = await readFile(filename, 'utf8')
 
@@ -137,23 +137,24 @@ For more details on usage, refer to [quansync's docs](https://github.com/antfu-c
 
 ## How it works
 
-`unplugin-quansync` transforms your async functions into generator functions with `quansyncMacro`,
-and transforms `await` into `yield`.
+`unplugin-quansync` transforms your async functions into generator functions
+wrapped by `quansync` from `quansync/macro`,
+replacing `await` with `yield`.
 
-The example above is transformed into:
+The example above becomes:
 
 ```ts
 import fs from 'node:fs'
-import { quansyncMacro } from 'quansync'
+import { quansync } from 'quansync/macro'
 
 // No transformations needed for objects
-const readFile = quansyncMacro({
+const readFile = quansync({
   sync: (path: string) => fs.readFileSync(path),
   async: (path: string) => fs.promises.readFile(path),
 })
 
 // `async function` is transformed into a generator function
-const myFunction = quansyncMacro(function* (filename) {
+const myFunction = quansync(function* (filename) {
   // `await` is transformed into `yield ...`
   const code = yield readFile(filename, 'utf8')
 
@@ -169,23 +170,21 @@ Both arrow functions and generators have been available since ES2015,
 but a "generator arrow function" syntax does not exist
 [yet](https://github.com/tc39/proposal-generator-arrow-functions).
 
-You can still use arrow functions with `quansyncMacro`,
+You can still use arrow functions and `this` with `quansync` macro,
 but they will be transformed into generator functions,
 retaining `this` binding and omitting the `arguments` object.
 
 ```ts
-const echoNewLine = quansyncMacro(() => 42)
+const fn = quansync(() => this)
 
 // Transforms to:
 
-const echoNewLine = quansyncMacro((v) => {
+const fn = quansync((v) => {
   return function* () {
-    return 42
+    return this
   }.call(this)
 })
 ```
-
-To minimize runtime overhead, prioritize using regular functions.
 
 ## Sponsors
 

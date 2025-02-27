@@ -39,7 +39,7 @@ export const getNumber = quansync({
   async: (id) => Promise.resolve(id),
 })
 
-const inc1 = quansync(function* (){
+const inc1 = quansync(function* () {
   const value = yield getNumber(1)
   return value + 1
 })
@@ -49,7 +49,7 @@ const inc2 = quansync(function* (id) {
   return value + 1
 })
 
-const inc3 = quansync(function* named(){
+const inc3 = quansync(function* named() {
   const value = yield getNumber(1)
   return value + 1
 })
@@ -59,22 +59,17 @@ const inc4 = quansync(function* named(id) {
   return value + 1
 })
 
-const inc5 = quansync(() => {
-return function* () {
+const inc5 = quansync(function* () {
   const value = yield getNumber(1)
   return value + 1
-}.call(this)
 })
 
-const inc6 = quansync((id) => {
-return function* () {
+const inc6 = quansync(function* (id) {
   const value = yield getNumber(1)
   return value + 1
-}.call(this)
 })
 
-export const fn7 = quansync(() => {
-return function* () {
+export const fn7 = quansync(function* () {
   yield 1
   yield 2
   const fn = async () => {
@@ -91,18 +86,15 @@ return function* () {
       await 10
     }
   }
-}.call(this)
 })
 
-quansync(() => {
-return function* () {
+quansync(function* () {
   ;!(yield 1)
   ;'' + (yield 1)
   ;false && (yield 1)
   fn7()
   ;(yield 1) < (yield 10)
   const x = (yield 1) < (yield 10)
-}.call(this)
 })
 
 export default async () => {
@@ -112,6 +104,40 @@ export default async () => {
     await expect(fn()).resolves.toBe(2)
     expect(fn.sync(1)).toBe(2)
   }
+}
+"
+`;
+
+exports[`transform > ./fixtures/bind-this.js 1`] = `
+"// @ts-check
+import { quansync } from 'quansync/macro'
+import { expect } from 'vitest'
+
+const globalThis = this
+
+const arrowFn = quansync(() => {
+return function* () {
+  return this
+}.call(this)
+})
+
+const normalFunction = quansync(function* () {
+  return this
+})
+
+class Cls {
+  arrowFn() {
+    return arrowFn.call(this)
+  }
+  normalFunction() {
+    return normalFunction.call(this)
+  }
+}
+
+export default async () => {
+  const cls = new Cls()
+  expect(await cls.arrowFn()).toBe(globalThis)
+  expect(await cls.normalFunction()).instanceOf(Cls)
 }
 "
 `;
@@ -127,11 +153,8 @@ export const echo = quansync({
 })
 
 const echoNewLine = quansync(
-  /** @param {string|Promise<string>} v */ (v) =>
-    {
-return function* () {
+  /** @param {string|Promise<string>} v */ function* (v) {
 return ((yield echo(yield v))) + '\\n'
-}.call(this)
 },
 )
 
