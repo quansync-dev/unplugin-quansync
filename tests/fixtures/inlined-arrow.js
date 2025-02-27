@@ -1,13 +1,13 @@
 // @ts-check
-import { quansyncMacro } from 'quansync'
+import { quansync } from 'quansync/macro'
 import { expect } from 'vitest'
 
-export const echo = quansyncMacro({
+export const echo = quansync({
   sync: /** @param {string} v */ (v) => v,
   async: (v) => Promise.resolve(v),
 })
 
-const echoNewLine = quansyncMacro(
+const echoNewLine = quansync(
   /** @param {string|Promise<string>} v */ async (v) =>
     (await echo(await v)) + '\n',
 )

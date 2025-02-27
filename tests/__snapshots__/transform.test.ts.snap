@@ -2,10 +2,10 @@
 
 exports[`transform > ./fixtures/alias.js 1`] = `
 "// @ts-check
-import { quansync, quansyncMacro as x } from 'quansync'
+import { quansync as x } from 'quansync/macro'
 import { expect } from 'vitest'
 
-export const echo = quansync({
+export const echo = x({
   sync: /** @param {string} v */ (v) => v,
   async: (v) => Promise.resolve(v),
 })
@@ -31,49 +31,49 @@ export default async () => {
 
 exports[`transform > ./fixtures/basic.js 1`] = `
 "// @ts-check
-import { quansyncMacro } from 'quansync'
+import { quansync } from 'quansync/macro'
 import { expect } from 'vitest'
 
-export const getNumber = quansyncMacro({
+export const getNumber = quansync({
   sync: /** @param {number} id */ (id) => id,
   async: (id) => Promise.resolve(id),
 })
 
-const inc1 = quansyncMacro(function* (){
+const inc1 = quansync(function* (){
   const value = yield getNumber(1)
   return value + 1
 })
 
-const inc2 = quansyncMacro(function* (id) {
+const inc2 = quansync(function* (id) {
   const value = yield getNumber(1)
   return value + 1
 })
 
-const inc3 = quansyncMacro(function* named(){
+const inc3 = quansync(function* named(){
   const value = yield getNumber(1)
   return value + 1
 })
 
-const inc4 = quansyncMacro(function* named(id) {
+const inc4 = quansync(function* named(id) {
   const value = yield getNumber(1)
   return value + 1
 })
 
-const inc5 = quansyncMacro(() => {
+const inc5 = quansync(() => {
 return function* () {
   const value = yield getNumber(1)
   return value + 1
 }.call(this)
 })
 
-const inc6 = quansyncMacro((id) => {
+const inc6 = quansync((id) => {
 return function* () {
   const value = yield getNumber(1)
   return value + 1
 }.call(this)
 })
 
-export const fn7 = quansyncMacro(() => {
+export const fn7 = quansync(() => {
 return function* () {
   yield 1
   yield 2
@@ -107,15 +107,15 @@ export default async () => {
 
 exports[`transform > ./fixtures/inlined-arrow.js 1`] = `
 "// @ts-check
-import { quansyncMacro } from 'quansync'
+import { quansync } from 'quansync/macro'
 import { expect } from 'vitest'
 
-export const echo = quansyncMacro({
+export const echo = quansync({
   sync: /** @param {string} v */ (v) => v,
   async: (v) => Promise.resolve(v),
 })
 
-const echoNewLine = quansyncMacro(
+const echoNewLine = quansync(
   /** @param {string|Promise<string>} v */ (v) =>
     {
 return function* () {

@@ -1,43 +1,43 @@
 // @ts-check
-import { quansyncMacro } from 'quansync'
+import { quansync } from 'quansync/macro'
 import { expect } from 'vitest'
 
-export const getNumber = quansyncMacro({
+export const getNumber = quansync({
   sync: /** @param {number} id */ (id) => id,
   async: (id) => Promise.resolve(id),
 })
 
-const inc1 = quansyncMacro(async function () {
+const inc1 = quansync(async function () {
   const value = await getNumber(1)
   return value + 1
 })
 
-const inc2 = quansyncMacro(async function (id) {
+const inc2 = quansync(async function (id) {
   const value = await getNumber(1)
   return value + 1
 })
 
-const inc3 = quansyncMacro(async function named() {
+const inc3 = quansync(async function named() {
   const value = await getNumber(1)
   return value + 1
 })
 
-const inc4 = quansyncMacro(async function named(id) {
+const inc4 = quansync(async function named(id) {
   const value = await getNumber(1)
   return value + 1
 })
 
-const inc5 = quansyncMacro(async () => {
+const inc5 = quansync(async () => {
   const value = await getNumber(1)
   return value + 1
 })
 
-const inc6 = quansyncMacro(async (id) => {
+const inc6 = quansync(async (id) => {
   const value = await getNumber(1)
   return value + 1
 })
 
-export const fn7 = quansyncMacro(async () => {
+export const fn7 = quansync(async () => {
   await 1
   await 2
   const fn = async () => {

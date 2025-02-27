@@ -32,7 +32,7 @@ export function transformQuansync(
   }
 
   const macroName = Object.values(imports).find(
-    (i) => i.source === 'quansync' && i.imported === 'quansyncMacro',
+    (i) => i.source === 'quansync/macro' && i.imported === 'quansync',
   )?.local
   if (!macroName) return
 
