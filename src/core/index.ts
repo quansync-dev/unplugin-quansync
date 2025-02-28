@@ -24,7 +24,9 @@ export function transformQuansync(
   id: string,
 ): CodeTransform | undefined {
   const lang = getLang(id)
-  const program = babelParse(code, lang)
+  const program = babelParse(code, lang, {
+    createParenthesizedExpressions: true,
+  })
   const imports: Record<string, ImportBinding> = Object.create(null)
 
   for (const node of program.body) {

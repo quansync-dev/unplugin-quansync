@@ -154,7 +154,7 @@ export const echo = quansync({
 
 const echoNewLine = quansync(
   /** @param {string|Promise<string>} v */ function* (v) {
-return ((yield echo(yield v))) + '\\n'
+return (yield echo(yield v)) + '\\n'
 },
 )
 
@@ -167,5 +167,15 @@ export default async () => {
   await expect(echoNewLine(Promise.resolve('hello'))).resolves.toBe('hello\\n')
   expect(() => echoNewLine.sync(Promise.resolve('world'))).throw()
 }
+"
+`;
+
+exports[`transform > ./fixtures/parens.js 1`] = `
+"import { quansync } from 'quansync/macro'
+
+const parens = quansync(function* (obj) {
+  const config = yield (obj + 1)
+  return config
+})
 "
 `;

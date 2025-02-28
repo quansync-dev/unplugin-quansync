@@ -21,7 +21,7 @@ describe('transform', async () => {
       const filePath = path.resolve(dirname, `temp/${path.basename(id)}`)
       await writeFile(filePath, result)
       const mod = await import(`${pathToFileURL(filePath).href}?${Date.now()}`)
-      await mod.default()
+      await mod.default?.()
 
       return result
     },
