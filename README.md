@@ -1,6 +1,6 @@
 # unplugin-quansync [![npm](https://img.shields.io/npm/v/unplugin-quansync.svg)](https://npmjs.com/package/unplugin-quansync)
 
-[![Unit Test](https://github.com/unplugin/unplugin-quansync/actions/workflows/unit-test.yml/badge.svg)](https://github.com/unplugin/unplugin-quansync/actions/workflows/unit-test.yml)
+[![Unit Test](https://github.com/quansync-dev/unplugin-quansync/actions/workflows/unit-test.yml/badge.svg)](https://github.com/quansync-dev/unplugin-quansync/actions/workflows/unit-test.yml)
 
 Write async functions, get both async and sync functions with
 [quansync](https://github.com/antfu/quansync) and compile-time magics 🪄.

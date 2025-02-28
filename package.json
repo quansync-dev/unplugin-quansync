@@ -19,13 +19,13 @@
     "farm"
   ],
   "license": "MIT",
-  "homepage": "https://github.com/unplugin/unplugin-quansync#readme",
+  "homepage": "https://github.com/quansync-dev/unplugin-quansync#readme",
   "bugs": {
-    "url": "https://github.com/unplugin/unplugin-quansync/issues"
+    "url": "https://github.com/quansync-dev/unplugin-quansync/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/unplugin/unplugin-quansync.git"
+    "url": "git+https://github.com/quansync-dev/unplugin-quansync.git"
   },
   "author": "三咲智子 Kevin Deng <sxzz@sxzz.moe>",
   "funding": "https://github.com/sponsors/sxzz",
