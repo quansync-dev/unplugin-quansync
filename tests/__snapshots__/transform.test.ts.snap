@@ -88,15 +88,6 @@ export const fn7 = quansync(function* () {
   }
 })
 
-quansync(function* () {
-  ;!(yield 1)
-  ;'' + (yield 1)
-  ;false && (yield 1)
-  fn7()
-  ;(yield 1) < (yield 10)
-  const x = (yield 1) < (yield 10)
-})
-
 export default async () => {
   await expect(getNumber(1)).resolves.toBe(1)
   expect(getNumber.sync(1)).toBe(1)
@@ -170,12 +161,25 @@ export default async () => {
 "
 `;
 
-exports[`transform > ./fixtures/parens.js 1`] = `
+exports[`transform > ./fixtures/semi.js 1`] = `
 "import { quansync } from 'quansync/macro'
 
-const parens = quansync(function* (obj) {
-  const config = yield (obj + 1)
+quansync(function* (obj) {
+  let config = yield (obj + 1)
+  if (true) config = (yield 10) || 10
   return config
+})
+
+quansync(function* () {
+  !(yield 1)
+  '' + (yield 1)
+  false && (yield 1)
+  fn()
+  ;(yield 1) < (yield 10)
+  const x = (yield 1) < (yield 10)
+
+  ;[]
+  [yield 10]
 })
 "
 `;

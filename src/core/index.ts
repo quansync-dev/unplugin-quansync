@@ -47,7 +47,7 @@ export function transformQuansync(
   function findUpExpressionStatement(): t.ExpressionStatement | undefined {
     for (let i = nodeStack.length - 1; i >= 0; i--) {
       const node = nodeStack[i]
-      if (isFunctionType(node)) return
+      if (isFunctionType(node) || node.type === 'BlockStatement') return
       if (node.type === 'ExpressionStatement') {
         return node
       }
@@ -80,7 +80,9 @@ export function transformQuansync(
           s.appendLeft(node.end!, ')')
 
           const stmt = findUpExpressionStatement()
-          if (stmt) prependSemi(stmt)
+          if (stmt && stmt.start === node.start) {
+            prependSemi(stmt)
+          }
         }
         return
       }

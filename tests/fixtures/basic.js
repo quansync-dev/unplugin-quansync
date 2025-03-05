@@ -56,15 +56,6 @@ export const fn7 = quansync(async () => {
   }
 })
 
-quansync(async () => {
-  !await 1
-  '' + await 1
-  false && await 1
-  fn7()
-  await 1 < await 10
-  const x = await 1 < await 10
-})
-
 export default async () => {
   await expect(getNumber(1)).resolves.toBe(1)
   expect(getNumber.sync(1)).toBe(1)
