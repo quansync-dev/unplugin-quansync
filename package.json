@@ -1,7 +1,7 @@
 {
   "name": "unplugin-quansync",
   "version": "0.3.4",
-  "packageManager": "pnpm@10.5.2",
+  "packageManager": "pnpm@10.6.2",
   "description": "Write async functions, get both async and sync functions",
   "type": "module",
   "keywords": [
@@ -73,27 +73,27 @@
     "quansync": ">=0.2.2"
   },
   "dependencies": {
-    "ast-kit": "^1.4.0",
-    "magic-string-ast": "^0.7.0",
+    "ast-kit": "^1.4.2",
+    "magic-string-ast": "^0.8.0",
     "unplugin": "^2.2.0",
     "unplugin-utils": "^0.2.4"
   },
   "devDependencies": {
     "@babel/types": "^7.26.9",
-    "@sxzz/eslint-config": "^5.2.0",
-    "@sxzz/prettier-config": "^2.2.0",
-    "@sxzz/test-utils": "^0.5.1",
-    "@types/node": "^22.13.9",
+    "@sxzz/eslint-config": "^6.0.1",
+    "@sxzz/prettier-config": "^2.2.1",
+    "@sxzz/test-utils": "^0.5.2",
+    "@types/node": "^22.13.10",
     "bumpp": "^10.0.3",
-    "eslint": "^9.21.0",
-    "oxc-transform": "^0.55.0",
+    "eslint": "^9.22.0",
+    "oxc-transform": "^0.56.5",
     "prettier": "^3.5.3",
     "quansync": "^0.2.8",
-    "tsdown": "^0.6.2",
+    "tsdown": "^0.6.5",
     "tsx": "^4.19.3",
     "typescript": "^5.8.2",
-    "vite": "^6.2.0",
-    "vitest": "^3.0.7"
+    "vite": "^6.2.1",
+    "vitest": "^3.0.8"
   },
   "engines": {
     "node": ">=18.12.0"
