@@ -75,8 +75,7 @@
   "dependencies": {
     "ast-kit": "^2.0.0",
     "magic-string-ast": "^0.9.1",
-    "unplugin": "^2.3.2",
-    "unplugin-utils": "^0.2.4"
+    "unplugin": "^2.3.2"
   },
   "devDependencies": {
     "@babel/types": "^7.27.1",
