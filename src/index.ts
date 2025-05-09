@@ -17,9 +17,9 @@ export const Quansync: UnpluginInstance<Options | undefined, false> =
             include: options.include,
             exclude: options.exclude,
           },
+          code: 'quansync',
         },
         handler(code, id) {
-          if (!code.includes('quansync')) return
           return transformQuansync(code, id)
         },
       },
