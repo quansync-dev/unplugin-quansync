@@ -1,7 +1,7 @@
 {
   "name": "unplugin-quansync",
   "version": "0.4.3",
-  "packageManager": "pnpm@10.13.1",
+  "packageManager": "pnpm@10.14.0",
   "description": "Write async functions, get both async and sync functions",
   "type": "module",
   "keywords": [
@@ -78,19 +78,19 @@
     "unplugin": "^2.3.5"
   },
   "devDependencies": {
-    "@babel/types": "^7.28.1",
-    "@sxzz/eslint-config": "^7.0.6",
+    "@babel/types": "^7.28.2",
+    "@sxzz/eslint-config": "^7.1.2",
     "@sxzz/prettier-config": "^2.2.3",
-    "@sxzz/test-utils": "^0.5.7",
-    "@types/node": "^24.0.14",
-    "bumpp": "^10.2.0",
-    "eslint": "^9.31.0",
+    "@sxzz/test-utils": "^0.5.9",
+    "@types/node": "^24.2.0",
+    "bumpp": "^10.2.2",
+    "eslint": "^9.32.0",
     "prettier": "^3.6.2",
     "quansync": "^0.2.10",
-    "tsdown": "^0.12.9",
+    "tsdown": "^0.13.3",
     "tsx": "^4.20.3",
-    "typescript": "^5.8.3",
-    "vite": "^7.0.5",
+    "typescript": "^5.9.2",
+    "vite": "^7.1.1",
     "vitest": "^3.2.4"
   },
   "engines": {
