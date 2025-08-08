@@ -1,1 +1,1 @@
-export {}
+export { transformQuansync } from './core/index'
