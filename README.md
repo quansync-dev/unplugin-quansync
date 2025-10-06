@@ -1,6 +1,8 @@
-# unplugin-quansync [![npm](https://img.shields.io/npm/v/unplugin-quansync.svg)](https://npmjs.com/package/unplugin-quansync)
+# unplugin-quansync
 
-[![Unit Test](https://github.com/quansync-dev/unplugin-quansync/actions/workflows/unit-test.yml/badge.svg)](https://github.com/quansync-dev/unplugin-quansync/actions/workflows/unit-test.yml)
+[![npm version][npm-version-src]][npm-version-href]
+[![npm downloads][npm-downloads-src]][npm-downloads-href]
+[![Unit Test][unit-test-src]][unit-test-href]
 
 Write async functions, get both async and sync functions with
 [quansync](https://github.com/antfu/quansync) and compile-time magics 🪄.
@@ -196,4 +198,13 @@ const fn = quansync((v) => {
 
 ## License
 
-[MIT](./LICENSE) License © 2025-PRESENT [三咲智子](https://github.com/sxzz)
+[MIT](./LICENSE) License © 2025-PRESENT [Kevin Deng](https://github.com/sxzz)
+
+<!-- Badges -->
+
+[npm-version-src]: https://img.shields.io/npm/v/unplugin-quansync.svg
+[npm-version-href]: https://npmjs.com/package/unplugin-quansync
+[npm-downloads-src]: https://img.shields.io/npm/dm/unplugin-quansync
+[npm-downloads-href]: https://www.npmcharts.com/compare/unplugin-quansync?interval=30
+[unit-test-src]: https://github.com/quansync-dev/unplugin-quansync/actions/workflows/unit-test.yml/badge.svg
+[unit-test-href]: https://github.com/quansync-dev/unplugin-quansync/actions/workflows/unit-test.yml
