@@ -5,6 +5,7 @@
  */
 
 import { Quansync } from './index'
+import type {} from 'unplugin'
 
 /**
  * Rolldown plugin
