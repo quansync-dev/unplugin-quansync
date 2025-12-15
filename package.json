@@ -1,7 +1,7 @@
 {
   "name": "unplugin-quansync",
   "type": "module",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "packageManager": "pnpm@10.26.0",
   "description": "Write async functions, get both async and sync functions",
   "author": "Kevin Deng <sxzz@sxzz.moe>",
