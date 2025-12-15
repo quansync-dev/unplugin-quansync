@@ -3,8 +3,10 @@ import { writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { testFixtures } from '@sxzz/test-utils'
+import { BindingMagicString } from 'rolldown'
 import { describe } from 'vitest'
 import { transformQuansync } from '../src/core'
+import type { RolldownString } from 'rolldown-string'
 
 describe('transform', async () => {
   const dirname = import.meta.dirname
@@ -15,7 +17,9 @@ describe('transform', async () => {
       import: 'default',
     }),
     async (args, id, code) => {
-      const result = transformQuansync(code, id)?.code
+      const s = new BindingMagicString(code)
+      transformQuansync(s as any as RolldownString, id)
+      const result = s.toString()
       if (!result) return result
 
       const filePath = path.resolve(dirname, `temp/${path.basename(id)}`)

@@ -8,21 +8,15 @@ import {
   walkImportDeclaration,
   type ImportBinding,
 } from 'ast-kit'
-import {
-  generateTransform,
-  MagicString,
-  type CodeTransform,
-} from 'magic-string-ast'
 import type * as t from '@babel/types'
+import type { RolldownString } from 'rolldown-string'
 
 const THIS_REGEX = /\bthis\b/
 const ARROW_FN_START = `\nreturn function* () {`
 const ARROW_FN_END = `}.call(this)\n`
 
-export function transformQuansync(
-  code: string,
-  id: string,
-): CodeTransform | undefined {
+export function transformQuansync(s: RolldownString, id: string): void {
+  const code = s.toString()
   const lang = getLang(id)
   const program = babelParse(code, lang, {
     createParenthesizedExpressions: true,
@@ -40,7 +34,6 @@ export function transformQuansync(
   )?.local
   if (!macroName) return
 
-  const s = new MagicString(code)
   const functionScopes: boolean[] = []
   const nodeStack: t.Node[] = []
 
@@ -97,7 +90,7 @@ export function transformQuansync(
       const name = 'id' in node && node.id ? node.id.name : ''
       const isArrowFunction = node.type === 'ArrowFunctionExpression'
 
-      const body = s.slice(node.body.start!, node.body.end!)
+      const body = code.slice(node.body.start!, node.body.end!)
       const hasParentThis = isArrowFunction && THIS_REGEX.test(body)
 
       if (hasParentThis) {
@@ -115,8 +108,6 @@ export function transformQuansync(
       }
     },
   })
-
-  return generateTransform(s, id)
 
   function rewriteFunctionSignature(
     node: t.Function,

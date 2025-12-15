@@ -1,3 +1,4 @@
+import { withMagicString } from 'rolldown-string'
 import { createUnplugin, type UnpluginInstance } from 'unplugin'
 import { transformQuansync } from './core'
 import { resolveOptions, type Options } from './core/options'
@@ -19,9 +20,9 @@ export const Quansync: UnpluginInstance<Options | undefined, false> =
           },
           code: 'quansync',
         },
-        handler(code, id) {
-          return transformQuansync(code, id)
-        },
+        handler: withMagicString((s, id) => {
+          transformQuansync(s, id)
+        }),
       },
     }
   })
