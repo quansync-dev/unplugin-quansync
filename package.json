@@ -2,7 +2,7 @@
   "name": "unplugin-quansync",
   "type": "module",
   "version": "0.5.2",
-  "packageManager": "pnpm@10.32.1",
+  "packageManager": "pnpm@11.7.0",
   "description": "Write async functions, get both async and sync functions",
   "author": "Kevin Deng <sxzz@sxzz.moe>",
   "license": "MIT",
@@ -42,15 +42,6 @@
     "./webpack": "./dist/webpack.js",
     "./package.json": "./package.json"
   },
-  "types": "./dist/index.d.mts",
-  "typesVersions": {
-    "*": {
-      "*": [
-        "./dist/*.d.mts",
-        "./*"
-      ]
-    }
-  },
   "files": [
     "dist"
   ],
@@ -58,7 +49,7 @@
     "access": "public"
   },
   "engines": {
-    "node": ">=20.19.0"
+    "node": "^22.18.0 || >=24.11.0"
   },
   "scripts": {
     "lint": "eslint --cache .",
@@ -74,27 +65,27 @@
     "quansync": "^1.0.0"
   },
   "dependencies": {
-    "ast-kit": "^2.2.0",
+    "ast-kit": "^3.0.0",
     "rolldown-string": "^0.3.0",
     "unplugin": "^3.0.0"
   },
   "devDependencies": {
-    "@babel/types": "^7.29.0",
-    "@sxzz/eslint-config": "^7.8.3",
+    "@babel/types": "^7.29.7",
+    "@sxzz/eslint-config": "^8.2.1",
     "@sxzz/prettier-config": "^2.3.1",
-    "@sxzz/test-utils": "^0.5.15",
-    "@types/node": "^25.5.0",
-    "@typescript/native-preview": "7.0.0-dev.20260313.1",
-    "bumpp": "^10.4.1",
-    "eslint": "^10.0.3",
-    "prettier": "^3.8.1",
+    "@sxzz/test-utils": "^0.5.18",
+    "@types/node": "^25.9.3",
+    "@typescript/native-preview": "7.0.0-dev.20260616.1",
+    "bumpp": "^11.1.0",
+    "eslint": "^10.5.0",
+    "prettier": "^3.8.4",
     "quansync": "^1.0.0",
-    "rolldown": "1.0.0-rc.9",
-    "tsdown": "^0.21.2",
-    "tsdown-preset-sxzz": "^0.4.2",
-    "typescript": "^5.9.3",
-    "vite": "^8.0.0",
-    "vitest": "^4.1.0"
+    "rolldown": "1.1.1",
+    "tsdown": "^0.22.2",
+    "tsdown-preset-sxzz": "^0.6.0",
+    "typescript": "^6.0.3",
+    "vite": "^8.0.16",
+    "vitest": "^4.1.9"
   },
   "prettier": "@sxzz/prettier-config"
 }
