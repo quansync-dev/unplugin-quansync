@@ -2,7 +2,7 @@
   "name": "unplugin-quansync",
   "type": "module",
   "version": "0.6.0",
-  "packageManager": "pnpm@11.7.0",
+  "packageManager": "pnpm@11.13.1",
   "description": "Write async functions, get both async and sync functions",
   "author": "Kevin Deng <sxzz@sxzz.moe>",
   "license": "MIT",
@@ -66,26 +66,26 @@
   },
   "dependencies": {
     "ast-kit": "^3.0.0",
-    "rolldown-string": "^0.3.0",
-    "unplugin": "^3.0.0"
+    "rolldown-string": "^0.3.1",
+    "unplugin": "^3.3.0"
   },
   "devDependencies": {
-    "@babel/types": "^7.29.7",
+    "@babel/types": "^8.0.4",
     "@sxzz/eslint-config": "^8.2.1",
     "@sxzz/prettier-config": "^2.3.1",
     "@sxzz/test-utils": "^0.5.18",
-    "@types/node": "^25.9.3",
-    "@typescript/native-preview": "7.0.0-dev.20260616.1",
+    "@types/node": "^26.1.1",
+    "@typescript/native-preview": "7.0.0-dev.20260707.2",
     "bumpp": "^11.1.0",
-    "eslint": "^10.5.0",
-    "prettier": "^3.8.4",
+    "eslint": "^10.7.0",
+    "prettier": "^3.9.5",
     "quansync": "^1.0.0",
-    "rolldown": "1.1.1",
-    "tsdown": "^0.22.2",
+    "rolldown": "1.2.0",
+    "tsdown": "^0.22.9",
     "tsdown-preset-sxzz": "^0.6.0",
     "typescript": "^6.0.3",
-    "vite": "^8.0.16",
-    "vitest": "^4.1.9"
+    "vite": "^8.1.5",
+    "vitest": "^4.1.10"
   },
   "prettier": "@sxzz/prettier-config"
 }
