@@ -53,7 +53,7 @@
   "devEngines": {
     "packageManager": {
       "name": "pnpm",
-      "version": "12.4.2",
+      "version": "12.11.2",
       "onFail": "download"
     }
   },
@@ -63,7 +63,7 @@
     "build": "tsdown",
     "dev": "tsdown --watch",
     "test": "vitest",
-    "typecheck": "tsgo --noEmit",
+    "typecheck": "tsc --noEmit",
     "release": "bumpp",
     "prepublishOnly": "pnpm run build"
   },
@@ -73,25 +73,25 @@
   "dependencies": {
     "rolldown-string": "^0.3.1",
     "unplugin": "^3.4.0",
-    "yuku-ast": "^0.10.2",
-    "yuku-parser": "^0.10.2"
+    "yuku-ast": "^0.19.0",
+    "yuku-parser": "^0.19.0"
   },
   "devDependencies": {
-    "@sxzz/eslint-config": "^8.6.0",
+    "@sxzz/eslint-config": "^8.7.0",
     "@sxzz/prettier-config": "^2.3.3",
     "@sxzz/test-utils": "^0.5.19",
-    "@types/node": "^26.1.1",
-    "@typescript/native-preview": "7.0.0-dev.20260707.2",
+    "@types/node": "^26.6.5",
+    "@typescript/native-preview": "npm:typescript@7.0.2",
     "bumpp": "^12.3.0",
-    "eslint": "^10.10.0",
-    "prettier": "^3.9.7",
+    "eslint": "^10.12.0",
+    "prettier": "^3.9.10",
     "quansync": "^1.0.0",
-    "rolldown": "1.2.9",
-    "tsdown": "^0.23.0",
+    "rolldown": "1.2.13",
+    "tsdown": "^0.23.1",
     "tsdown-preset-sxzz": "^0.7.1",
     "typescript": "^6.0.3",
-    "vite": "^8.3.0",
-    "vitest": "^5.0.1"
+    "vite": "^8.3.4",
+    "vitest": "^5.0.3"
   },
   "prettier": "@sxzz/prettier-config"
 }
